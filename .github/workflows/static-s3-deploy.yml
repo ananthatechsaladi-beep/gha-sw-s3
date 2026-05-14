@@ -1,6 +1,6 @@
 name: Deploy HTML to S3
 
-on: 
+on:
   push:
 
 jobs:
@@ -19,9 +19,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Code static code to s3
+      - name: Copy static code to S3
         run: |
-          aws s3 syn ./ s3://gha-static-website-demo-1/ \
-          --exclude  "*" \
-          --include "index.html"
-          
+          aws s3 sync ./ s3://gha-static-website-demo-1/ \
+            --exclude "*" \
+            --include "index.html"
